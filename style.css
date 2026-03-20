@@ -1,0 +1,80 @@
+
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:'Lato', sans-serif;
+    background: linear-gradient(135deg,#1e1e1e,#3a003a);
+}
+
+.tarjeta{
+    background: rgb(163,160,160);
+    width:650px;
+    border-radius:20px;
+    padding:40px;
+    border:4px solid purple;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+.nombre{
+    text-align:center;
+    font-family:'Montserrat', sans-serif;
+    font-size:34px;
+    border-bottom:3px solid purple;
+    padding-bottom:15px;
+    margin-bottom:25px;
+}
+
+/* INPUT NUMERO */
+
+.inputNumero{
+    width:100%;
+    text-align:center;
+    font-size:45px;
+    padding:15px;
+    border-radius:12px;
+    border:none;
+    margin-bottom:30px;
+    outline:none;
+}
+
+.grupos{
+    display:flex;
+    gap:20px;
+}
+
+.bloque{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    flex:1;
+    text-align:center;
+}
+
+.bloque h3{
+    margin-top:0;
+    border-bottom:2px solid purple;
+    padding-bottom:5px;
+}
+
+label{
+    display:block;
+    margin:10px 0;
+    cursor:pointer;
+    font-weight:500;
+}
+
+
+.comando{
+    margin-top:25px;
+    background:black;
+    color:#00ff88;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    font-family:monospace;
+    font-size:18px;
+}

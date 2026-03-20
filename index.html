@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Calculadora CHMOD</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="tarjeta">
+            <div class="nombre">Calculadora CHMOD</div>
+            <input type="text" id="numero" class="inputNumero" maxlength="3" placeholder="000" />
+            <div class="grupos">
+                <div class="bloque">
+                    <h3>Yo</h3>
+                    <label><input type="checkbox" class="permiso yo" value="4" /> Leer</label>
+                    <label><input type="checkbox" class="permiso yo" value="2" /> Escribir</label>
+                    <label><input type="checkbox" class="permiso yo" value="1" /> Ejecutar</label>
+                </div>
+                <div class="bloque">
+                    <h3>Grupo</h3>
+                    <label><input type="checkbox" class="permiso grupo" value="4" /> Leer</label>
+                    <label><input type="checkbox" class="permiso grupo" value="2" /> Escribir</label>
+                    <label><input type="checkbox" class="permiso grupo" value="1" /> Ejecutar</label>
+                </div>
+                <div class="bloque">
+                    <h3>Otros</h3>
+                    <label><input type="checkbox" class="permiso otros" value="4" /> Leer</label>
+                    <label><input type="checkbox" class="permiso otros" value="2" /> Escribir</label>
+                    <label><input type="checkbox" class="permiso otros" value="1" /> Ejecutar</label>
+                </div>
+            </div>
+            <div class="comando" id="comando">chmod 000 archivo.txt</div>
+        </div>
+
+        <script>
+            const numero = document.getElementById("numero");
+            const checkboxes = document.querySelectorAll(".permiso");
+            const comando = document.getElementById("comando");
+
+            function calcularNumero() {
+                let yo = 0;
+                let grupo = 0;
+                let otros = 0;
+
+                document.querySelectorAll(".yo").forEach((c) => {
+                    if (c.checked) yo += Number(c.value);
+                });
+
+                document.querySelectorAll(".grupo").forEach((c) => {
+                    if (c.checked) grupo += Number(c.value);
+                });
+
+                document.querySelectorAll(".otros").forEach((c) => {
+                    if (c.checked) otros += Number(c.value);
+                });
+
+                let resultado = `${yo}${grupo}${otros}`;
+
+                numero.value = resultado;
+                comando.textContent = `chmod ${resultado} archivo.txt`;
+            }
+
+            function marcarChecks(valor) {
+                if (valor.length !== 3) return;
+
+                const grupos = ["yo", "grupo", "otros"];
+
+                grupos.forEach((g, index) => {
+                    let num = Number(valor[index]);
+
+                    document.querySelectorAll(`.${g}`).forEach((c) => {
+                        c.checked = false;
+                    });
+
+                    if (num >= 4) {
+                        document.querySelector(`.${g}[value="4"]`).checked = true;
+                        num -= 4;
+                    }
+
+                    if (num >= 2) {
+                        document.querySelector(`.${g}[value="2"]`).checked = true;
+                        num -= 2;
+                    }
+
+                    if (num >= 1) {
+                        document.querySelector(`.${g}[value="1"]`).checked = true;
+                    }
+                });
+            }
+
+            checkboxes.forEach((c) => {
+                c.addEventListener("change", calcularNumero);
+            });
+
+            numero.addEventListener("input", () => {
+                let texto = numero.value.replace(/[^0-7]/g, "");
+                texto = texto.substring(0, 3);
+
+                numero.value = texto;
+
+                if (texto.length === 3) {
+                    marcarChecks(texto);
+                    comando.textContent = `chmod ${texto} archivo.txt`;
+                }
+            });
+        </script>
+    </body>
+</html>
